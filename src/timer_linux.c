@@ -1,4 +1,6 @@
 #include "timer_linux.h"
+#include <stdio.h>
+#include <errno.h>
 
 custom_timer_t createTimer(timerCallback callback, timer_type_t type, void *callback_arg, uint32_t msec) {
 	custom_timer_t timer;
@@ -48,6 +50,23 @@ int stopTimer(custom_timer_t *timer) {
 	timer_value.it_interval.tv_sec = 0;
 	timer_value.it_interval.tv_nsec = 0;
 	return timer_settime(timer->timer_id, 0, &timer_value, NULL);
+}
+
+void restartTimer(custom_timer_t *timer) {
+	int status = 0;
+	int errno_code = 0;
+	if(isTimerRunning(timer)) {
+		status = stopTimer(timer);
+		if(status != 0) {
+			errno_code = errno;
+			printf("Error during timer restart! (stopTimer()) errno code = %d\n", errno_code);
+		}
+	}
+	status = startTimer(timer);
+	if(status != 0) {
+		errno_code = errno;
+		printf("Error during timer restart! (startTimer()) errno code = %d\n", errno_code);
+	}
 }
 
 bool isTimerRunning(custom_timer_t *timer) {

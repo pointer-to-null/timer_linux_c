@@ -26,6 +26,7 @@ custom_timer_t createTimer(timerCallback callback, timer_type_t type, void *call
 int deleteTimer(custom_timer_t *timer);
 int startTimer(custom_timer_t *timer);
 int stopTimer(custom_timer_t *timer);
+void restartTimer(custom_timer_t *timer);
 bool isTimerRunning(custom_timer_t *timer);
 
 #endif //TIMER_LINUX_H

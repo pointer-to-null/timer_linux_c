@@ -59,6 +59,10 @@ int main(void) {
 	printf("Timer1 running %d\n\n", isTimerRunning(&timer1));
 	printf("Timer2 running %d\n\n", isTimerRunning(&timer2));
 
+	printf("Timer2 restart.\n\n");
+	restartTimer(&timer2);
+	printf("Timer2 running %d\n\n", isTimerRunning(&timer2));
+
 	usleep(1000 * 1000 * 5);
 
 	printf("Timer2 stop.\n\n");
@@ -67,8 +71,8 @@ int main(void) {
 
 	usleep(1000 * 1000 * 5);
 
-	printf("Timer2 start.\n\n");
-	startTimer(&timer2);
+	printf("Timer2 restart.\n\n");
+	restartTimer(&timer2);
 	printf("Timer2 running %d\n\n", isTimerRunning(&timer2));
 
 	while(1) {
